@@ -9,3 +9,4 @@ pom.xml.asc
 /hs_err_pid*.log
 .DS_Store
 /target/
+gpg.edn
