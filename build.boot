@@ -16,5 +16,5 @@
         :description "Boot task to compile Cljx code to Cljs and Clj code"
         :url         "https://github.com/deraen/boot-cljx"
         :scm         {:url "https://github.com/deraen/boot-cljx"}
-        :license     {:name "Eclipse Public License"
-                      :url  "http://www.eclipse.org/legal/epl-v10.html"}])
+        :license {:name "The MIT License (MIT)"
+                  :url "http://opensource.org/licenses/mit-license.php"}])
