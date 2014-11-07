@@ -1,4 +1,4 @@
-# boot-cljs
+# boot-cljx
 
 *WIP*
 
