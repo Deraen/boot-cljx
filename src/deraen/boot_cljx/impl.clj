@@ -13,7 +13,6 @@
 
 (defn generate
   [files {:keys [source-path output-path rules] :as options}]
-  (println files)
   (println "Rewriting cljx to" output-path
            (str "(" (:filetype rules) ")")
            "with features" (:features rules) "and"
