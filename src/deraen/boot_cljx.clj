@@ -19,22 +19,22 @@
         rules       [:clj :cljs]
         tmp-dir     (core/mktmpdir!)
         stage-dir   (core/mktgtdir!)
-        base-opts   {; FIXME:
-                     :source-paths ["src/cljx"]
-                     :output-path (.getPath tmp-dir)}
+        base-opts   {:output-path (.getPath tmp-dir)}
         builds      (map (partial assoc base-opts :rules) rules)
         p           (-> (core/get-env)
                         (update-in [:dependencies] into deps)
-                        pod/make-pod future)]
+                        pod/make-pod
+                        future)]
     (core/with-pre-wrap
       (io/make-parents tmp-dir)
       (let [srcs     (core/src-files+)
             cljx     (->> srcs (core/by-ext [".cljx"]))
+            cljx*    (map (juxt #(.getPath %) core/resource-path) cljx)
             lastc    (->> cljx (reduce #(assoc %1 %2 (.lastModified %2)) {}))
             dirty-c? (not= @last-cljx (reset! last-cljx lastc))]
         (when dirty-c?
           (util/info "Compiling cljx...\n")
-          (pod/call-in @p `(cljx.core/cljx-compile ~builds)))
+          (pod/call-in @p `(deraen.boot-cljx.impl/cljx-compile ~cljx* ~builds)))
         (core/sync! stage-dir tmp-dir)
         ; ??
         #_
