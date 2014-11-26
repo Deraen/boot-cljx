@@ -12,7 +12,7 @@ and `.cljs` files. Resulting files are available to others tasks through
 ```clojure
 ; All files (.clj, .cljx, .cljs) could be on the same directory,
 ; but I like to have separate directories per filetype.
-(set-env! :src-files #{"src/cljx" "src/clj" "src/cljs"})
+(set-env! :src-paths #{"src/cljx" "src/clj" "src/cljs"})
 
 ; Run cljx before cljs
 ; $ boot cljx cljs ...
