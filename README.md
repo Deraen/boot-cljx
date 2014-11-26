@@ -1,6 +1,7 @@
 # boot-cljx
+[![Clojars Project](http://clojars.org/deraen/boot-cljx/latest-version.svg)](http://clojars.org/deraen/boot-cljx)
 
-[Boot](https://github.com/boot-clj/boot) task to compile Cljx...
+[Boot](https://github.com/boot-clj/boot) task to compile Cljx.
 
 * Provides the `cljx` task
 * Reads `.cljx` files from `:src-paths` and creates corresponding `.clj`
