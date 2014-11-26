@@ -18,3 +18,11 @@
         :scm         {:url "https://github.com/deraen/boot-cljx"}
         :license {:name "The MIT License (MIT)"
                   :url "http://opensource.org/licenses/mit-license.php"}])
+
+(deftask dev
+  "Dev process"
+  []
+  (comp
+    (watch)
+    (repl :server true)
+    (build-jar)))

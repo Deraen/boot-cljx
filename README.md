@@ -10,5 +10,4 @@
 
 - [ ] Handle errors
 - [ ] What options should there be?
-  - `:rules` ?
-  - `:output-path` ?
+  - No options needed for now

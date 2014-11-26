@@ -13,14 +13,10 @@
 
 (defn generate
   [files {:keys [source-path output-path rules] :as options}]
-  (println "Rewriting cljx to" output-path
-           (str "(" (:filetype rules) ")")
-           "with features" (:features rules) "and"
-           (count (:transforms rules)) "transformations.")
   (doseq [[src-file-path relative-file-path] files
           :let [result (cljx/transform (slurp src-file-path) rules)
-                destination (io/file output-path (change-file-ext relative-file-path (:filetype rules)))]]
-    (doto destination
+                dst (io/file output-path (change-file-ext relative-file-path (:filetype rules)))]]
+    (doto dst
       io/make-parents
       (spit (with-out-str
               (println result)
