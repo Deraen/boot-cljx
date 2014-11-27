@@ -11,26 +11,16 @@
 (defn- change-file-ext [path new-ext]
   (s/replace path #"\.[^\.]+$" (str "." new-ext)))
 
-(defn generate
-  [files {:keys [source-path output-path rules] :as options}]
-  (doseq [[src-file-path relative-file-path] files
-          :let [result (cljx/transform (slurp src-file-path) rules)
-                dst (io/file output-path (change-file-ext relative-file-path (:filetype rules)))]]
-    (doto dst
+(defn ^:private rules {:clj  rules/clj-rules
+                       :cljs rules/cljs-rules})
+
+(defn cljx-compile [r path relative-path]
+  (println r path relative-path)
+  (let [rule   (get rules r)
+        result (cljx/transform (slurp path) rule)]
+    (doto (change-file-ext relative-path (:filetype rule))
       io/make-parents
       (spit (with-out-str
               (println result)
               (print warning-str)
-              (println relative-file-path))))))
-
-(defn cljx-compile [files builds]
-  "The actual static transform, separated out so it can be called repeatedly."
-  (doseq [{:keys [output-path rules] :as build} builds]
-    (let [rules (cond
-                  (= :clj rules) rules/clj-rules
-                  (= :cljs rules) rules/cljs-rules
-                  (symbol? rules) (do
-                                    (require (symbol (namespace rules)))
-                                    @(resolve rules))
-                  :default (eval rules))]
-      (generate files (assoc build :rules rules)))))
+              (println relative-path))))))
