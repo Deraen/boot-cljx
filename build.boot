@@ -33,7 +33,7 @@
   "Dev process"
   []
   (comp
-    (add-src)
+    ; (add-src)
     (watch)
     (repl :server true)
     (pom)
