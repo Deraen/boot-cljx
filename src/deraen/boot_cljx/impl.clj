@@ -11,14 +11,14 @@
 (defn- change-file-ext [path new-ext]
   (s/replace path #"\.[^\.]+$" (str "." new-ext)))
 
-(defn ^:private rules {:clj  rules/clj-rules
-                       :cljs rules/cljs-rules})
+(def ^:private rules {:clj  rules/clj-rules
+                      :cljs rules/cljs-rules})
 
-(defn cljx-compile [r path relative-path]
-  (println r path relative-path)
+(defn cljx-compile [r path target-dir relative-path]
   (let [rule   (get rules r)
-        result (cljx/transform (slurp path) rule)]
-    (doto (change-file-ext relative-path (:filetype rule))
+        result (cljx/transform (slurp path) rule)
+        output (change-file-ext relative-path (:filetype rule))]
+    (doto (io/file target-dir output)
       io/make-parents
       (spit (with-out-str
               (println result)
