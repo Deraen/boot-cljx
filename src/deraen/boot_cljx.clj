@@ -10,8 +10,6 @@
 (def ^:private deps
   '[[com.keminglabs/cljx "0.4.0"]])
 
-(def ^:private last-cljx (atom {}))
-
 (core/deftask cljx
   "Compile Cljx code."
   []
@@ -22,28 +20,24 @@
         p           (-> (core/get-env)
                         (update-in [:dependencies] into deps)
                         pod/make-pod
-                        future)]
-    (core/with-pre-wrap
-      fileset
-      (let [srcs     (core/input-files fileset)
-            cljx     (core/by-ext [".cljx"] srcs)
-            c        (reduce #(assoc %1 %2 (.lastModified (tmpd/file %2))) {} cljx)
-            ; Find the cljx files which have changed since last run
-            cljx*    (filter #(not= (get @last-cljx %) (get c %)) cljx)]
-        (println @last-cljx c cljx cljx*)
-        (reset! last-cljx c)
-        (if (seq cljx*)
-          (do
-            (util/info (str "Compiling cljx... " (count cljx*) " changed files."))
-            (doseq [r rules
-                    f cljx*]
-              (pod/call-in*
-                @p
-                `(deraen.boot-cljx.impl/cljx-compile
-                   ~r
-                   ~(.getPath (tmpd/file f))
-                   ~(tmpd/path f))))
-            (-> fileset
-                (core/add-resource tmp)
-                core/commit!))
-          fileset)))))
+                        future)
+        last-cljx   (atom nil)]
+    (core/with-pre-wrap fileset
+      (let [cljx (->> fileset
+                      (core/fileset-diff @last-cljx)
+                      core/input-files
+                      (core/by-ext [".cljx"]))]
+        (reset! last-cljx fileset)
+        (if-not (seq cljx)
+          fileset
+          (do (util/info (str "Compiling cljx... " (count cljx) " changed files."))
+              (doseq [r rules
+                      f cljx]
+                (pod/with-call-in @p
+                  (deraen.boot-cljx.impl/cljx-compile
+                    ~r
+                    ~(.getPath (tmpd/file f))
+                    ~(tmpd/path f))))
+              (-> fileset
+                  (core/add-resource tmp)
+                  core/commit!)))))))
