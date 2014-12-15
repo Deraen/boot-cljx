@@ -15,7 +15,6 @@
   []
   (let [rules       [:clj :cljs]
         tmp         (core/temp-dir!)
-        base-opts   {:output-path (.getPath tmp)}
         p           (-> (core/get-env)
                         (update-in [:dependencies] into deps)
                         pod/make-pod
