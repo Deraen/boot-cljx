@@ -26,18 +26,16 @@
                       core/input-files
                       (core/by-ext [".cljx"]))]
         (reset! last-cljx fileset)
-        (if (seq cljx)
-          (do
-            (util/info (str "Compiling cljx... " (count cljx) " changed files."))
-            (doseq [r rules
-                    f cljx]
-              (pod/with-call-in @p
-                (deraen.boot-cljx.impl/cljx-compile
-                  ~r
-                  ~(.getPath (tmpd/file f))
-                  ~(.getPath tmp)
-                  ~(tmpd/path f))))
-            (-> fileset
-                (core/add-resource tmp)
-                core/commit!))
-          fileset)))))
+        (when (seq cljx)
+          (util/info (str "Compiling cljx... " (count cljx) " changed files."))
+          (doseq [r rules
+                  f cljx]
+            (pod/with-call-in @p
+              (deraen.boot-cljx.impl/cljx-compile
+                ~r
+                ~(.getPath (tmpd/file f))
+                ~(.getPath tmp)
+                ~(tmpd/path f)))))
+        (-> fileset
+            (core/add-resource tmp)
+            core/commit!)))))
