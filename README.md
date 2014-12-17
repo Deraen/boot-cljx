@@ -4,9 +4,8 @@
 [Boot](https://github.com/boot-clj/boot) task to compile Cljx.
 
 * Provides the `cljx` task
-* Reads `.cljx` files from `:src-paths` and creates corresponding `.clj`
-and `.cljs` files. Resulting files are available to others tasks through
-`src-files`.
+* Reads `.cljx` files and creates corresponding `.clj` and `.cljs` files.
+  Resulting files will be available to others tasks and on classpath.
 
 ## Use
 
