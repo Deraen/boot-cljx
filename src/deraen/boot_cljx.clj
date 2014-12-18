@@ -2,11 +2,11 @@
   {:boot/export-tasks true}
   (:require
     boot.repl
-   [clojure.java.io :as io]
-   [boot.pod        :as pod]
-   [boot.core       :as core]
-   [boot.util       :as util]
-   [boot.tmpdir     :as tmpd]))
+    [clojure.java.io :as io]
+    [boot.pod        :as pod]
+    [boot.core       :as core]
+    [boot.util       :as util]
+    [boot.tmpdir     :as tmpd]))
 
 (def ^:private cljx-version "0.5.0")
 (def ^:private deps
