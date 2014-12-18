@@ -6,6 +6,8 @@
 * Provides the `cljx` task
 * Reads `.cljx` files and creates corresponding `.clj` and `.cljs` files.
   Resulting files will be available to others tasks and on classpath.
+* Adds cljx nrepl middleware to repl task default settings
+  * Make sure your cljx task is run before repl task
 
 ## Use
 

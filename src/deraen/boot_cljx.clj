@@ -1,14 +1,16 @@
 (ns deraen.boot-cljx
   {:boot/export-tasks true}
   (:require
+    boot.repl
    [clojure.java.io :as io]
    [boot.pod        :as pod]
    [boot.core       :as core]
    [boot.util       :as util]
    [boot.tmpdir     :as tmpd]))
 
+(def ^:private cljx-version "0.5.0")
 (def ^:private deps
-  '[[com.keminglabs/cljx "0.5.0"]])
+  [['com.keminglabs/cljx cljx-version]])
 
 (core/deftask cljx
   "Compile Cljx code."
@@ -20,6 +22,8 @@
                         pod/make-pod
                         future)
         last-cljx   (atom nil)]
+    (swap! boot.repl/*default-dependencies* conj ['com.keminglabs/cljx cljx-version])
+    (swap! boot.repl/*default-middleware* conj 'cljx.repl-middleware/wrap-cljx)
     (core/with-pre-wrap fileset
       (let [cljx (->> fileset
                       (core/fileset-diff @last-cljx)
