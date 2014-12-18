@@ -8,8 +8,7 @@
     [boot.util       :as util]
     [boot.tmpdir     :as tmpd]))
 
-(def cljx-version "0.5.0")
-
+(def ^:private cljx-version "0.5.0")
 (def ^:private deps
   [['com.keminglabs/cljx cljx-version]])
 
