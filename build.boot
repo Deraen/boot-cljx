@@ -27,8 +27,5 @@
   []
   (comp
     (watch)
-    (speak)
     (repl :server true)
-    (pom)
-    (jar)
-    (install)))
+    (build-jar)))
