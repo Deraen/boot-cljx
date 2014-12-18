@@ -27,7 +27,7 @@
                       (core/by-ext [".cljx"]))]
         (reset! last-cljx fileset)
         (when (seq cljx)
-          (util/info (str "Compiling cljx... " (count cljx) " changed files."))
+          (util/info (str "Compiling cljx... " (count cljx) " changed files.\n"))
           (doseq [r rules
                   f cljx]
             (pod/with-call-in @p
