@@ -1,13 +1,15 @@
+(set-env! :resource-paths #{"src"})
+
+(require '[deraen.boot-cljx :refer [cljx-version]])
+(def +version+ (str cljx-version "-SNAPSHOT"))
+
 (set-env!
-  :resource-paths #{"src"}
-  :dependencies   '[[org.clojure/clojure "1.6.0"       :scope "provided"]
+  :dependencies   `[[org.clojure/clojure "1.6.0"       :scope "provided"]
                     [boot/core           "2.0.0-pre28" :scope "provided"]
                     [adzerk/bootlaces    "0.1.5"       :scope "test"]
-                    [com.keminglabs/cljx "0.5.0"       :scope "test"]])
+                    [com.keminglabs/cljx ~cljx-version :scope "test"]])
 
 (require '[adzerk.bootlaces :refer :all])
-
-(def +version+ "0.2.0")
 
 (bootlaces! +version+)
 
