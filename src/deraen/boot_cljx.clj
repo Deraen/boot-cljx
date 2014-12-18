@@ -8,7 +8,7 @@
    [boot.tmpdir     :as tmpd]))
 
 (def ^:private deps
-  '[[com.keminglabs/cljx "0.4.0"]])
+  '[[com.keminglabs/cljx "0.5.0"]])
 
 (core/deftask cljx
   "Compile Cljx code."
