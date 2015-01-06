@@ -6,7 +6,8 @@
     [boot.pod        :as pod]
     [boot.core       :as core]
     [boot.util       :as util]
-    [boot.tmpdir     :as tmpd]))
+    [boot.tmpdir     :as tmpd]
+    [boot.from.io.aviso.ansi :as ansi]))
 
 (def ^:private cljx-version "0.5.0")
 (def ^:private deps
@@ -31,7 +32,7 @@
                       (core/by-ext [".cljx"]))]
         (reset! last-cljx fileset)
         (when (seq cljx)
-          (util/info (str "Compiling cljx... " (count cljx) " changed files.\n"))
+          (util/info (str (ansi/blue "cljx>") " Compiling %d changed files... ") (count cljx))
           (doseq [r rules
                   f cljx]
             (pod/with-call-in @p
@@ -39,7 +40,8 @@
                 ~r
                 ~(.getPath (tmpd/file f))
                 ~(.getPath tmp)
-                ~(tmpd/path f)))))
+                ~(tmpd/path f))))
+          (util/info (str (ansi/green-bg (ansi/white " OK ")) "\n")))
         (-> fileset
             (core/add-resource tmp)
             core/commit!)))))
