@@ -32,7 +32,7 @@
                       (core/by-ext [".cljx"]))]
         (reset! last-cljx fileset)
         (when (seq cljx)
-          (util/info (str (ansi/blue "cljx>") " Compiling %d changed files... ") (count cljx))
+          (util/info "Compiling cljx... %d changed files.\n" (count cljx))
           (doseq [r rules
                   f cljx]
             (pod/with-call-in @p
@@ -40,8 +40,7 @@
                 ~r
                 ~(.getPath (tmpd/file f))
                 ~(.getPath tmp)
-                ~(tmpd/path f))))
-          (util/info (str (ansi/green-bg (ansi/white " OK ")) "\n")))
+                ~(tmpd/path f)))))
         (-> fileset
             (core/add-resource tmp)
             core/commit!)))))

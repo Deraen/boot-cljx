@@ -7,7 +7,7 @@
 
 (require '[adzerk.bootlaces :refer :all])
 
-(def +version+ "0.2.1")
+(def +version+ "0.2.2")
 
 (bootlaces! +version+)
 
@@ -17,8 +17,7 @@
        :description "Boot task to compile Cljx code to Cljs and Clj code"
        :url         "https://github.com/deraen/boot-cljx"
        :scm         {:url "https://github.com/deraen/boot-cljx"}
-       :license     {:name "The MIT License (MIT)"
-                     :url "http://opensource.org/licenses/mit-license.php"}})
+       :license     {"MIT" "http://opensource.org/licenses/mit-license.php"}})
 
 (deftask dev
   "Dev process"
