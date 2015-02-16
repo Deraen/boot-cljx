@@ -31,4 +31,4 @@
 
 Copyright (C) 2014-2015 Juho Teperi
 
-Distributed under the Eclipse Public License, the same as Clojure.
+Distributed under the MIT License.
