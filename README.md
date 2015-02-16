@@ -27,9 +27,8 @@
     ...))
 ```
 
-## TODO
+## License
 
-- [ ] Handle errors
-  - Does cljx throw any errors?
-- [ ] What options should there be?
-  - No options needed for now
+Copyright (C) 2014-2015 Juho Teperi
+
+Distributed under the Eclipse Public License, the same as Clojure.
