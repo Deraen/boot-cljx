@@ -9,7 +9,7 @@
     [boot.tmpdir     :as tmpd]
     [boot.from.io.aviso.ansi :as ansi]))
 
-(def ^:private cljx-version "0.5.0")
+(def ^:private cljx-version "0.6.0")
 (def ^:private deps
   [['com.keminglabs/cljx cljx-version]])
 

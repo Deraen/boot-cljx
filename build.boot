@@ -3,11 +3,11 @@
   :dependencies   '[[org.clojure/clojure "1.6.0"       :scope "provided"]
                     [boot/core           "2.0.0-rc5"   :scope "provided"]
                     [adzerk/bootlaces    "0.1.8"       :scope "test"]
-                    [com.keminglabs/cljx "0.5.0"       :scope "test"]])
+                    [com.keminglabs/cljx "0.6.0"       :scope "test"]])
 
 (require '[adzerk.bootlaces :refer :all])
 
-(def +version+ "0.2.2")
+(def +version+ "0.3.0-SNAPSHOT")
 
 (bootlaces! +version+)
 
