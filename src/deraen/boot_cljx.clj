@@ -29,8 +29,21 @@
       (let [cljx (->> fileset
                       (core/fileset-diff @last-cljx)
                       core/input-files
-                      (core/by-ext [".cljx"]))]
+                      (core/by-ext [".cljx"]))
+            removed (->> fileset
+                         (core/fileset-removed @last-cljx)
+                         core/input-files
+                         (core/by-ext [".cljx"]))]
         (reset! last-cljx fileset)
+        (when (seq removed)
+          (util/info "Removing stale cljx output files... %d files removed.\n" (count removed))
+          (doseq [r rules
+                  f removed]
+            (pod/with-call-in @p
+              (deraen.boot-cljx.impl/remove-stale
+                ~r
+                ~(.getPath tmp)
+                ~(tmpd/path f)))))
         (when (seq cljx)
           (util/info "Compiling cljx... %d changed files.\n" (count cljx))
           (doseq [r rules

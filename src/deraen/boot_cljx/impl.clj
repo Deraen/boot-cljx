@@ -26,3 +26,7 @@
               (print warning-str)
               (println relative-path))))
     (util/dbug "Wrote %s\n" (.getPath output))))
+
+(defn remove-stale [r path]
+  (let [output (io/file target-dir (change-file-ext relative-path (:filetype rule)))]
+    (io/delete-file output)))
