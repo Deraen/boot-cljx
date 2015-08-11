@@ -1,6 +1,8 @@
 # boot-cljx
 [![Clojars Project](http://clojars.org/deraen/boot-cljx/latest-version.svg)](http://clojars.org/deraen/boot-cljx)
 
+**Cljx is deprecated, please use [cljc](http://dev.clojure.org/display/design/Reader+Conditionals) instead.**
+
 [Boot](https://github.com/boot-clj/boot) task to compile Cljx.
 
 * Provides the `cljx` task
